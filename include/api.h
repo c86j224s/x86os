@@ -17,12 +17,12 @@
 int apiPutChar(int);
 int apiPuts(char*);
 int apiInitKeyboard(void);
-void apiReleaseKeyboard(void);
+int apiReleaseKeyboard(void);
 int apiHasKey(void);
 int apiGetKey(void);
 int apiGetCurX(void);
 int apiGetCurY(void);
-void apiMoveXY(int, int);
+int apiMoveXY(int, int);
 int apiDrawChar(int);
 
 #endif

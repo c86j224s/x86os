@@ -30,7 +30,7 @@ int syscallInitKbd() {
 	return device_open(KBD, 0);
 }
 
-void syscallReleaseKbd() {
+int syscallReleaseKbd() {
 	return device_close(KBD, 0);
 }
 
@@ -65,7 +65,7 @@ void syscallMoveXY(int x, int y) {
 	device_ioctl(TTY, 0, TTY_COMMAND_SET_CONF, &t);
 }
 
-void syscallDrawChar(int c) {
+int syscallDrawChar(int c) {
 	return k_drawchar(c);
 }
 

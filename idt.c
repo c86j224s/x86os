@@ -46,8 +46,12 @@ void init_idt () {
 	idt_io_wait();
 
 	// making ignorable interrupt descriptor table
-	for(int_desc = IDT_OFFSET; int_desc < IDT_OFFSET + IDT_SIZE; int_desc++)
+	for ( int_desc = IDT_OFFSET
+		; int_desc < IDT_OFFSET + IDT_SIZE
+		; int_desc++ ) {
+
 		*int_desc = INT_DESC((int)isr_ignore, PRIV_KERN, 0);
+	}
 
 	init_interrupt_services();	
 	init_exception_traps();

@@ -12,7 +12,7 @@ int apiInitKeyboard(void) {
 	return syscall0(API_INIT_KEYBOARD);
 }
 
-void apiReleaseKeyboard(void) {
+int apiReleaseKeyboard(void) {
 	return syscall0(API_RELEASE_KEYBOARD);
 }
 
@@ -32,8 +32,8 @@ int apiGetCurY() {
 	return syscall0(API_GET_CUR_Y);
 }
 
-void apiMoveXY(int x, int y) {
-	syscall2(API_MOVE_XY, x, y);
+int apiMoveXY(int x, int y) {
+	return syscall2(API_MOVE_XY, x, y);
 }
 
 int apiDrawChar(int c) {

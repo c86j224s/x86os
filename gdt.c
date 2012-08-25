@@ -12,7 +12,7 @@ void init_gdt(void) {
 	*gdt++ = SEG_DESC(0xfffff, 0, TYPE_CODE, PRIV_USER);
 	*gdt++ = SEG_DESC(0xfffff, 0, TYPE_DATA, PRIV_USER);
 	*gdt++ = TSS_DESC(0x68, (int)&tss);
-	gdtr = GDTR((unsigned short)gdt-GDT_OFFSET, GDT_OFFSET);
+	gdtr = GDTR((word)gdt-GDT_OFFSET, (dword)GDT_OFFSET);
 	asm(
 		"cli;"
 		"lgdt %0;"

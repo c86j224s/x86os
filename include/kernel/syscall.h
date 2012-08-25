@@ -9,13 +9,13 @@ extern void* syscall_table[];
 int syscallPutChar(int);
 int syscallPuts(char *);
 int syscallInitKbd(void);
-void syscallReleaseKbd(void);
+int syscallReleaseKbd(void);
 int syscallHasKey(void);
 int syscallGetKey(void);
 int syscallGetCurX(void);
 int syscallGetCurY(void);
 void syscallMoveXY(int, int);
-void syscallDrawChar(int);
+int syscallDrawChar(int);
 
 /*
 int syscallDevOpen(int major, int minor);

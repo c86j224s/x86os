@@ -5,7 +5,7 @@
 
 #include "apps/init.h"
 
-void int_schedule(void);
+//void int_schedule(void);
 
 void isr_ignore__wrapper(void) {
 	asm(
@@ -99,7 +99,9 @@ void int_schedule__wrapper(void) {
 		"mov %%eax, %0;"
 		: "=m"(int_schedule__esp_cs)
 	);
-	if (int_schedule__esp_cs & 0x03 == 3 && isr_timer__counter > PROCESS_TICK) {
+	if ( (int_schedule__esp_cs & 0x03) == 3
+		&& isr_timer__counter > PROCESS_TICK ) {
+
 		isr_timer__counter = 0;
 		asm("jmp schedule;");
 	}

@@ -1,4 +1,5 @@
 #include <kernel/gdt.h>
+#include <kernel/idt.h>	
 #include <kernel/kio.h>
 #include <kernel/addr.h>
 #include <kernel/mem.h>

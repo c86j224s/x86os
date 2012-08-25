@@ -67,7 +67,8 @@ struct fat16_file_kt {
 	int linear_offset;
 	byte* buffer;
 } __attribute__ ((__packed__));
-struct fat16_file_kt fs_open_fat16(byte *);
+
+struct fat16_file_kt fs_open_fat16(char *);
 void fs_close_fat16(struct fat16_file_kt);
 int fs_read_fat16(struct fat16_file_kt, void*, int);
 // TODO write, lseek, ioctl

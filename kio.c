@@ -156,7 +156,7 @@ int k_vsprintf(char *target, const char *fmt, va_list args) {
 	const char *old_target = target;
 	while (*fmt) {
 		if (*fmt == '%') {
-			*fmt++;
+			fmt++;
 			switch(*fmt) {
 				case 'c':
 					c = (char)va_arg(args, int);
@@ -183,6 +183,7 @@ int k_vsprintf(char *target, const char *fmt, va_list args) {
 				default:
 					*target++ = '%';
 					*target++ = *fmt;
+					break;
 			}
 			fmt++;
 			continue;
