@@ -1,0 +1,308 @@
+
+user1_temp:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+40001000 <crt_main>:
+40001000:	55                   	push   %ebp
+40001001:	89 e5                	mov    %esp,%ebp
+40001003:	83 ec 08             	sub    $0x8,%esp
+40001006:	e8 59 02 00 00       	call   40001264 <clear>
+4000100b:	e8 9e 01 00 00       	call   400011ae <apiInitKeyboard>
+40001010:	e8 02 00 00 00       	call   40001017 <handleKeyInput>
+40001015:	eb f9                	jmp    40001010 <crt_main+0x10>
+
+40001017 <handleKeyInput>:
+40001017:	55                   	push   %ebp
+40001018:	89 e5                	mov    %esp,%ebp
+4000101a:	83 ec 28             	sub    $0x28,%esp
+4000101d:	e8 b4 01 00 00       	call   400011d6 <apiHasKey>
+40001022:	85 c0                	test   %eax,%eax
+40001024:	74 1f                	je     40001045 <handleKeyInput+0x2e>
+40001026:	e8 bf 01 00 00       	call   400011ea <apiGetKey>
+4000102b:	89 45 f4             	mov    %eax,-0xc(%ebp)
+4000102e:	8b 45 f4             	mov    -0xc(%ebp),%eax
+40001031:	89 04 24             	mov    %eax,(%esp)
+40001034:	e8 0e 00 00 00       	call   40001047 <dumpScanCode>
+40001039:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+40001040:	e8 33 01 00 00       	call   40001178 <apiPutChar>
+40001045:	c9                   	leave  
+40001046:	c3                   	ret    
+
+40001047 <dumpScanCode>:
+40001047:	55                   	push   %ebp
+40001048:	89 e5                	mov    %esp,%ebp
+4000104a:	83 ec 18             	sub    $0x18,%esp
+4000104d:	8b 45 08             	mov    0x8(%ebp),%eax
+40001050:	c1 f8 04             	sar    $0x4,%eax
+40001053:	83 e0 0f             	and    $0xf,%eax
+40001056:	0f b6 80 b3 12 00 40 	movzbl 0x400012b3(%eax),%eax
+4000105d:	0f be c0             	movsbl %al,%eax
+40001060:	89 04 24             	mov    %eax,(%esp)
+40001063:	e8 10 01 00 00       	call   40001178 <apiPutChar>
+40001068:	8b 45 08             	mov    0x8(%ebp),%eax
+4000106b:	83 e0 0f             	and    $0xf,%eax
+4000106e:	0f b6 80 b3 12 00 40 	movzbl 0x400012b3(%eax),%eax
+40001075:	0f be c0             	movsbl %al,%eax
+40001078:	89 04 24             	mov    %eax,(%esp)
+4000107b:	e8 f8 00 00 00       	call   40001178 <apiPutChar>
+40001080:	c9                   	leave  
+40001081:	c3                   	ret    
+40001082:	90                   	nop
+40001083:	90                   	nop
+
+40001084 <syscall0>:
+40001084:	55                   	push   %ebp
+40001085:	89 e5                	mov    %esp,%ebp
+40001087:	53                   	push   %ebx
+40001088:	c7 05 b8 23 00 40 00 	movl   $0x0,0x400023b8
+4000108f:	00 00 00 
+40001092:	a1 b8 23 00 40       	mov    0x400023b8,%eax
+40001097:	a3 b4 23 00 40       	mov    %eax,0x400023b4
+4000109c:	a1 b4 23 00 40       	mov    0x400023b4,%eax
+400010a1:	a3 b0 23 00 40       	mov    %eax,0x400023b0
+400010a6:	a1 b0 23 00 40       	mov    0x400023b0,%eax
+400010ab:	a3 ac 23 00 40       	mov    %eax,0x400023ac
+400010b0:	8b 45 08             	mov    0x8(%ebp),%eax
+400010b3:	ba ac 23 00 40       	mov    $0x400023ac,%edx
+400010b8:	89 d3                	mov    %edx,%ebx
+400010ba:	cd 80                	int    $0x80
+400010bc:	a1 b8 23 00 40       	mov    0x400023b8,%eax
+400010c1:	5b                   	pop    %ebx
+400010c2:	5d                   	pop    %ebp
+400010c3:	c3                   	ret    
+
+400010c4 <syscall1>:
+400010c4:	55                   	push   %ebp
+400010c5:	89 e5                	mov    %esp,%ebp
+400010c7:	53                   	push   %ebx
+400010c8:	8b 45 0c             	mov    0xc(%ebp),%eax
+400010cb:	a3 ac 23 00 40       	mov    %eax,0x400023ac
+400010d0:	c7 05 b8 23 00 40 00 	movl   $0x0,0x400023b8
+400010d7:	00 00 00 
+400010da:	a1 b8 23 00 40       	mov    0x400023b8,%eax
+400010df:	a3 b4 23 00 40       	mov    %eax,0x400023b4
+400010e4:	a1 b4 23 00 40       	mov    0x400023b4,%eax
+400010e9:	a3 b0 23 00 40       	mov    %eax,0x400023b0
+400010ee:	8b 45 08             	mov    0x8(%ebp),%eax
+400010f1:	ba ac 23 00 40       	mov    $0x400023ac,%edx
+400010f6:	89 d3                	mov    %edx,%ebx
+400010f8:	cd 80                	int    $0x80
+400010fa:	a1 b8 23 00 40       	mov    0x400023b8,%eax
+400010ff:	5b                   	pop    %ebx
+40001100:	5d                   	pop    %ebp
+40001101:	c3                   	ret    
+
+40001102 <syscall2>:
+40001102:	55                   	push   %ebp
+40001103:	89 e5                	mov    %esp,%ebp
+40001105:	53                   	push   %ebx
+40001106:	8b 45 0c             	mov    0xc(%ebp),%eax
+40001109:	a3 ac 23 00 40       	mov    %eax,0x400023ac
+4000110e:	8b 45 10             	mov    0x10(%ebp),%eax
+40001111:	a3 b0 23 00 40       	mov    %eax,0x400023b0
+40001116:	c7 05 b8 23 00 40 00 	movl   $0x0,0x400023b8
+4000111d:	00 00 00 
+40001120:	a1 b8 23 00 40       	mov    0x400023b8,%eax
+40001125:	a3 b4 23 00 40       	mov    %eax,0x400023b4
+4000112a:	8b 45 08             	mov    0x8(%ebp),%eax
+4000112d:	ba ac 23 00 40       	mov    $0x400023ac,%edx
+40001132:	89 d3                	mov    %edx,%ebx
+40001134:	cd 80                	int    $0x80
+40001136:	a1 b8 23 00 40       	mov    0x400023b8,%eax
+4000113b:	5b                   	pop    %ebx
+4000113c:	5d                   	pop    %ebp
+4000113d:	c3                   	ret    
+
+4000113e <syscall3>:
+4000113e:	55                   	push   %ebp
+4000113f:	89 e5                	mov    %esp,%ebp
+40001141:	53                   	push   %ebx
+40001142:	8b 45 0c             	mov    0xc(%ebp),%eax
+40001145:	a3 ac 23 00 40       	mov    %eax,0x400023ac
+4000114a:	8b 45 10             	mov    0x10(%ebp),%eax
+4000114d:	a3 b0 23 00 40       	mov    %eax,0x400023b0
+40001152:	8b 45 14             	mov    0x14(%ebp),%eax
+40001155:	a3 b4 23 00 40       	mov    %eax,0x400023b4
+4000115a:	c7 05 b8 23 00 40 00 	movl   $0x0,0x400023b8
+40001161:	00 00 00 
+40001164:	8b 45 08             	mov    0x8(%ebp),%eax
+40001167:	ba ac 23 00 40       	mov    $0x400023ac,%edx
+4000116c:	89 d3                	mov    %edx,%ebx
+4000116e:	cd 80                	int    $0x80
+40001170:	a1 b8 23 00 40       	mov    0x400023b8,%eax
+40001175:	5b                   	pop    %ebx
+40001176:	5d                   	pop    %ebp
+40001177:	c3                   	ret    
+
+40001178 <apiPutChar>:
+40001178:	55                   	push   %ebp
+40001179:	89 e5                	mov    %esp,%ebp
+4000117b:	83 ec 18             	sub    $0x18,%esp
+4000117e:	8b 45 08             	mov    0x8(%ebp),%eax
+40001181:	89 44 24 04          	mov    %eax,0x4(%esp)
+40001185:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+4000118c:	e8 33 ff ff ff       	call   400010c4 <syscall1>
+40001191:	c9                   	leave  
+40001192:	c3                   	ret    
+
+40001193 <apiPuts>:
+40001193:	55                   	push   %ebp
+40001194:	89 e5                	mov    %esp,%ebp
+40001196:	83 ec 18             	sub    $0x18,%esp
+40001199:	8b 45 08             	mov    0x8(%ebp),%eax
+4000119c:	89 44 24 04          	mov    %eax,0x4(%esp)
+400011a0:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
+400011a7:	e8 18 ff ff ff       	call   400010c4 <syscall1>
+400011ac:	c9                   	leave  
+400011ad:	c3                   	ret    
+
+400011ae <apiInitKeyboard>:
+400011ae:	55                   	push   %ebp
+400011af:	89 e5                	mov    %esp,%ebp
+400011b1:	83 ec 18             	sub    $0x18,%esp
+400011b4:	c7 04 24 02 00 00 00 	movl   $0x2,(%esp)
+400011bb:	e8 c4 fe ff ff       	call   40001084 <syscall0>
+400011c0:	c9                   	leave  
+400011c1:	c3                   	ret    
+
+400011c2 <apiReleaseKeyboard>:
+400011c2:	55                   	push   %ebp
+400011c3:	89 e5                	mov    %esp,%ebp
+400011c5:	83 ec 18             	sub    $0x18,%esp
+400011c8:	c7 04 24 03 00 00 00 	movl   $0x3,(%esp)
+400011cf:	e8 b0 fe ff ff       	call   40001084 <syscall0>
+400011d4:	c9                   	leave  
+400011d5:	c3                   	ret    
+
+400011d6 <apiHasKey>:
+400011d6:	55                   	push   %ebp
+400011d7:	89 e5                	mov    %esp,%ebp
+400011d9:	83 ec 18             	sub    $0x18,%esp
+400011dc:	c7 04 24 04 00 00 00 	movl   $0x4,(%esp)
+400011e3:	e8 9c fe ff ff       	call   40001084 <syscall0>
+400011e8:	c9                   	leave  
+400011e9:	c3                   	ret    
+
+400011ea <apiGetKey>:
+400011ea:	55                   	push   %ebp
+400011eb:	89 e5                	mov    %esp,%ebp
+400011ed:	83 ec 18             	sub    $0x18,%esp
+400011f0:	c7 04 24 05 00 00 00 	movl   $0x5,(%esp)
+400011f7:	e8 88 fe ff ff       	call   40001084 <syscall0>
+400011fc:	c9                   	leave  
+400011fd:	c3                   	ret    
+
+400011fe <apiGetCurX>:
+400011fe:	55                   	push   %ebp
+400011ff:	89 e5                	mov    %esp,%ebp
+40001201:	83 ec 18             	sub    $0x18,%esp
+40001204:	c7 04 24 06 00 00 00 	movl   $0x6,(%esp)
+4000120b:	e8 74 fe ff ff       	call   40001084 <syscall0>
+40001210:	c9                   	leave  
+40001211:	c3                   	ret    
+
+40001212 <apiGetCurY>:
+40001212:	55                   	push   %ebp
+40001213:	89 e5                	mov    %esp,%ebp
+40001215:	83 ec 18             	sub    $0x18,%esp
+40001218:	c7 04 24 07 00 00 00 	movl   $0x7,(%esp)
+4000121f:	e8 60 fe ff ff       	call   40001084 <syscall0>
+40001224:	c9                   	leave  
+40001225:	c3                   	ret    
+
+40001226 <apiMoveXY>:
+40001226:	55                   	push   %ebp
+40001227:	89 e5                	mov    %esp,%ebp
+40001229:	83 ec 18             	sub    $0x18,%esp
+4000122c:	8b 55 0c             	mov    0xc(%ebp),%edx
+4000122f:	8b 45 08             	mov    0x8(%ebp),%eax
+40001232:	89 54 24 08          	mov    %edx,0x8(%esp)
+40001236:	89 44 24 04          	mov    %eax,0x4(%esp)
+4000123a:	c7 04 24 08 00 00 00 	movl   $0x8,(%esp)
+40001241:	e8 bc fe ff ff       	call   40001102 <syscall2>
+40001246:	c9                   	leave  
+40001247:	c3                   	ret    
+
+40001248 <apiDrawChar>:
+40001248:	55                   	push   %ebp
+40001249:	89 e5                	mov    %esp,%ebp
+4000124b:	83 ec 18             	sub    $0x18,%esp
+4000124e:	8b 45 08             	mov    0x8(%ebp),%eax
+40001251:	89 44 24 04          	mov    %eax,0x4(%esp)
+40001255:	c7 04 24 09 00 00 00 	movl   $0x9,(%esp)
+4000125c:	e8 63 fe ff ff       	call   400010c4 <syscall1>
+40001261:	c9                   	leave  
+40001262:	c3                   	ret    
+40001263:	90                   	nop
+
+40001264 <clear>:
+40001264:	55                   	push   %ebp
+40001265:	89 e5                	mov    %esp,%ebp
+40001267:	83 ec 28             	sub    $0x28,%esp
+4000126a:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+40001271:	00 
+40001272:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+40001279:	e8 a8 ff ff ff       	call   40001226 <apiMoveXY>
+4000127e:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+40001285:	eb 10                	jmp    40001297 <clear+0x33>
+40001287:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+4000128e:	e8 e5 fe ff ff       	call   40001178 <apiPutChar>
+40001293:	83 45 f4 01          	addl   $0x1,-0xc(%ebp)
+40001297:	83 7d f4 18          	cmpl   $0x18,-0xc(%ebp)
+4000129b:	7e ea                	jle    40001287 <clear+0x23>
+4000129d:	c7 44 24 04 00 00 00 	movl   $0x0,0x4(%esp)
+400012a4:	00 
+400012a5:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+400012ac:	e8 75 ff ff ff       	call   40001226 <apiMoveXY>
+400012b1:	c9                   	leave  
+400012b2:	c3                   	ret    
+
+Disassembly of section .rodata:
+
+400012b3 <.rodata>:
+400012b3:	30 31                	xor    %dh,(%ecx)
+400012b5:	32 33                	xor    (%ebx),%dh
+400012b7:	34 35                	xor    $0x35,%al
+400012b9:	36                   	ss
+400012ba:	37                   	aaa    
+400012bb:	38 39                	cmp    %bh,(%ecx)
+400012bd:	41                   	inc    %ecx
+400012be:	42                   	inc    %edx
+400012bf:	43                   	inc    %ebx
+400012c0:	44                   	inc    %esp
+400012c1:	45                   	inc    %ebp
+400012c2:	46                   	inc    %esi
+	...
+
+Disassembly of section .bss:
+
+400022e0 <snake>:
+	...
+
+400023a8 <snake_direction>:
+400023a8:	00 00                	add    %al,(%eax)
+	...
+
+400023ac <p>:
+	...
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	47                   	inc    %edi
+   1:	43                   	inc    %ebx
+   2:	43                   	inc    %ebx
+   3:	3a 20                	cmp    (%eax),%ah
+   5:	28 55 62             	sub    %dl,0x62(%ebp)
+   8:	75 6e                	jne    78 <crt_main-0x40000f88>
+   a:	74 75                	je     81 <crt_main-0x40000f7f>
+   c:	20 34 2e             	and    %dh,(%esi,%ebp,1)
+   f:	34 2e                	xor    $0x2e,%al
+  11:	33 2d 34 75 62 75    	xor    0x75627534,%ebp
+  17:	6e                   	outsb  %ds:(%esi),(%dx)
+  18:	74 75                	je     8f <crt_main-0x40000f71>
+  1a:	35 29 20 34 2e       	xor    $0x2e342029,%eax
+  1f:	34 2e                	xor    $0x2e,%al
+  21:	33 00                	xor    (%eax),%eax
