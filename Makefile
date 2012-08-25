@@ -5,6 +5,7 @@ OBJCOPY=objcopy
 
 INCLUDEDIRS += -I$(shell pwd)/include -I.
 CFLAGS = -Wall -O0 -m32 -nostdinc -nostdlib -ffreestanding -fno-stack-protector $(INCLUDEDIRS)
+LDOPT += -m elf_i386
 
 BOOTOBJS = boot/boot.o \
 	boot/scr.o \
@@ -66,18 +67,18 @@ mbr: mbr.asm
 
 bootl: $(BOOTOBJS) boot/boot.asm
 	nasm -f bin -o $(shell pwd)/boot_asm boot/boot.asm
-	$(LD) -o boot_c_temp -Ttext 0x20200 -e main $(BOOTOBJS)
+	$(LD) $(LDOPT) -o boot_c_temp -Ttext 0x20200 -e main $(BOOTOBJS)
 	$(OBJCOPY) -R .note -R .comment -S -O binary boot_c_temp boot_c
 	cat boot_asm boot_c > boot.bin
 	rm boot_c_temp boot_c boot_asm
 
 kernel: $(KERNOBJS)
-	$(LD) -o kernel_temp -Ttext 0x500000 -e kernel_main $(KERNOBJS) $(LIBGCC)
+	$(LD) $(LDOPT) -o kernel_temp -Ttext 0x500000 -e kernel_main $(KERNOBJS) $(LIBGCC)
 	$(OBJCOPY) -R .note -R .comment -S -O binary kernel_temp kernel.bin
 	rm kernel_temp
 
 snake: $(SNAKEOBJS) $(USEROBJS)
-	$(LD) -o snake_temp -Ttext 0x40001000 -e crt_main $(SNAKEOBJS) $(USEROBJS) $(LIBGCC)
+	$(LD) $(LDOPT) -o snake_temp -Ttext 0x40001000 -e crt_main $(SNAKEOBJS) $(USEROBJS) $(LIBGCC)
 	objdump -D snake_temp > apps/snake.dmp
 	$(OBJCOPY) -R .note -R .comment -S -O binary snake_temp snake.bin
 	rm snake_temp
